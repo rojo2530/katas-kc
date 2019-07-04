@@ -1,23 +1,22 @@
 /* Verifica que el numero introducido esta en 1 y 100 */
-function testEntry (number) {
+function testEntryRange (number) {
     return (number >=1 && number <=100);
 }
 
-/* Verifica que el numero es un entero y no un decimal */
+/* Devuelve un array con los dígitos de un número */
 function digitsNumber (number) {
     return Array.from(number.toString(), Number);
 }
 
 function FooBarQuix (number) {
-
-    if (!testEntry(number)) {
+    
+    if (!Number.isInteger(number)) {
+        return 'La entrada ' + number + ' pasado no es un numero entero';
+    }
+    if (!testEntryRange(number)) {
         return 'El numero ' + number +  ' introducido no es correcto, tiene que estar entre 1 y 100';
     }
-
-    if (!Number.isInteger(number)) {
-        return 'El numero ' + number + ' pasado no es un entero';
-    }
-
+    
     let output = '';
     let arrayNumber = digitsNumber(number);
     const numberRelationString = {
@@ -45,3 +44,5 @@ function FooBarQuix (number) {
 for (let i = 0; i<= 100; i++) {
     console.log(FooBarQuix(i));
 }
+
+console.log(FooBarQuix('C'));
