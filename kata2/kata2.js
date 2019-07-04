@@ -1,68 +1,17 @@
-// const RomanSymbols = {
-//     I: 1,
-//     V: 5,
-//     X: 10,
-//     L: 50,
-//     C: 100,
-//     D: 500,
-//     M: 1000
-// };
-
-// function testEntryString (RomanNumber) {
-//     return (typeof (RomanNumber) == 'string');
-// }
-
-// function validatorRomanNumber (RomanNumber) {
-
-//     if (!testEntryString(RomanNumber)) {
-//         return 'La entrada no es un string';
-//     }
-
-//     let contIXCM = 0;
-//     let contVLD = 0;
-//     let ArrayRomanNumber = Array.from(RomanNumber);
-//     console.log(ArrayRomanNumber);
-
-//     /* Comprobamos si el numero Romano contiene algun simbolo no permitido */
-//     for (let i = 0; i < ArrayRomanNumber.length; i++) {
-//         if (!(ArrayRomanNumber[i] in RomanSymbols)) {
-//             return false;
-//         }
-//         if (contIXCM > 3) return false;
-//         if (contVLD > 1 ) return false;
-
-//         if (['I', 'X', 'C', 'M'].includes(ArrayRomanNumber[i]) {
-//             contIXCM++;
-//             console.log(contIXCM);
-//         }
-//     }
-
-
-    
-// }
-
 function validatorRomanNumber(RomanNumber) {
     return /(?=^.+$)^M{0,3}(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[VX]|V?I{0,3})$/.test(RomanNumber);
 }
 
 function decimalToRoman (number) {
     
-    let result = '';
-
     if (number < 1 || number > 3999) {
         return 'El número introducido no es valido, tiene que estar entre 1 y 3999';
     }
 
-    const RomanSymbols = {
-        M: 1000,
-        D: 500,
-        C: 100,
-        L: 50,
-        X: 10,
-        V: 5,
-        I: 1
-    };
+    let result = '';
 
+    const RomanSymbols = { M:1000,CM:900, D:500,CD:400, C:100, XC:90,L:50, XV: 40, X:10, IX:9, V:5, IV:4, I:1 };
+       
     for (let key in RomanSymbols) {
         while (number % RomanSymbols[key] < number) {
             result += key; 
@@ -74,4 +23,31 @@ function decimalToRoman (number) {
 
 }
 
-console.log(decimalToRoman(4));
+function romanToDecimal(romanNumber) {
+    
+    if (!validatorRomanNumber(romanNumber)) {
+        return 'El numero romano no es valido o se sale del rango 1-3999';
+    }
+
+    let output = 0;
+
+    const romanSymbols = { M:1000,CM:900, D:500,CD:400, C:100, XC:90, XL: 40, L:50, IX:9, X:10, IV:4, V:5, I:1 };
+
+    for (let key in romanSymbols) {
+        while (romanNumber.indexOf(key) != -1) {
+            output += parseInt(romanSymbols[key]);
+            romanNumber = romanNumber.replace(key,"*");
+        }   
+    }
+
+    return output;
+}
+
+console.log(romanToDecimal('LXXXVII'));
+console.log(romanToDecimal('XLIV'));
+console.log(romanToDecimal('XXII'));
+console.log(romanToDecimal('XXXIX'));
+
+
+console.log(decimalToRoman(3999));
+console.log(decimalToRoman(431));
