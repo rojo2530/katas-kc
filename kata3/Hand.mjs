@@ -42,14 +42,29 @@ export class Hand {
             throw new Error ('Existen cartas repetidas en la mano');
         }
     }
+
+    //Devuelve un array solo con el número de cada carta, sin el palo
+    getNumberCardsArray() {
+        return this.cards.map( card => card[0]);
+    }
+
+    //Devuelve un array solo con el palo de cada carta, sin el numero
+    getSuitCardsArray() {
+        return this.cards.map( card => card[1]);
+    }
+
     //Para ver si todas las cartas de la mano son del mismo Palo
     isSuited() {
-        const suitedCards = this.cards.map( card => card[1]);
+        const suitedCards = this.getSuitCardsArray();
         const uniqueSuitedCards = [...new Set(suitedCards)];
-        console.log(uniqueSuitedCards.length);
         return (uniqueSuitedCards.length == 1);
     }
 
+    //Devuelve un diccionario con el número de cartas iguales
+    getNumberOcurrences() {
+        const numbersCardArray = this.getNumberCardsArray();
+
+    }
 
 
 
