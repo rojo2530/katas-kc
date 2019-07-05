@@ -44,25 +44,39 @@ export class Hand {
     }
 
     //Devuelve un array solo con el número de cada carta, sin el palo
-    getNumberCardsArray() {
+    getNumberHandArray() {
         return this.cards.map( card => card[0]);
     }
 
     //Devuelve un array solo con el palo de cada carta, sin el numero
-    getSuitCardsArray() {
+    getSuitHandArray() {
         return this.cards.map( card => card[1]);
     }
 
     //Para ver si todas las cartas de la mano son del mismo Palo
     isSuited() {
-        const suitedCards = this.getSuitCardsArray();
+        const suitedCards = this.getSuitHandArray();
         const uniqueSuitedCards = [...new Set(suitedCards)];
         return (uniqueSuitedCards.length == 1);
     }
 
     //Devuelve un diccionario con el número de cartas iguales
     getNumberOcurrences() {
-        const numbersCardArray = this.getNumberCardsArray();
+        const numbersHandArray = this.getNumberHandArray();
+        let output = {};
+
+        numbersHandArray.forEach( (card) => {
+            if (pokerCards.S.indexOf(card) != -1) {
+                typeof output[card] === 'undefined' ? output[card] = 1: output[card]++;
+                // if (output[card]) {
+                //     output[card]++;
+                // } else {
+                //     output[card] = 1;
+                // }
+            }
+        });
+
+        return output;
 
     }
 
