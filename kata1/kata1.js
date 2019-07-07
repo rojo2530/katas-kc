@@ -41,7 +41,7 @@ function FooBarQuix (number) {
     return (number + ' -> ' + output);
 }
 
-for (let i = 0; i<= 100; i++) {
+for (let i = 1; i<= 100; i++) {
     console.log(FooBarQuix(i));
 }
 
