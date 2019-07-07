@@ -31,7 +31,7 @@ function romanToDecimal(romanNumber) {
 
     let output = 0;
 
-    const romanSymbols = { M:1000,CM:900, D:500,CD:400, C:100, XC:90, XL: 40, L:50, IX:9, X:10, IV:4, V:5, I:1 };
+    const romanSymbols = { CM:900, M:1000, CD:400, D:500, C:100, XC:90, XL: 40, L:50, IX:9, X:10, IV:4, V:5, I:1 };
 
     for (let key in romanSymbols) {
         while (romanNumber.indexOf(key) != -1) {
@@ -44,10 +44,10 @@ function romanToDecimal(romanNumber) {
 }
 
 console.log(romanToDecimal('LXXXVII'));
-console.log(romanToDecimal('XLIV'));
-console.log(romanToDecimal('XXII'));
-console.log(romanToDecimal('XXXIX'));
+console.log(romanToDecimal('CDXXI'));
+console.log(romanToDecimal('MMMCM'));
+console.log(romanToDecimal('IVI'));
 
 
-console.log(decimalToRoman(3999));
+console.log(decimalToRoman(421));
 console.log(decimalToRoman(431));
