@@ -1,20 +1,21 @@
 export const pokerCards = {
-    S: [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K'],
-    H: [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K'],
-    C: [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K'],
-    D: [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K']
+    S: [ '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'],
+    H: [ '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'],
+    C: [ '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'],
+    D: [ '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 };
 
 export const ranks = [
-    'Royal flush',
-    'Straight flush',
-    'Four of a kind',
-    'Full house',
-    'Flush',
-    'Ace Straight',
-    'Straight',
-    'Three of a kind',
-    'Two pairs',
+    'High Card',
     'Pair',
-    'High card',
+    'Two Pairs',
+    'Three of a Kind',
+    'Ace Straigth to 5',
+    'Straigth',
+    'Flush',
+    'Full house',
+    'Four of a kind or Poker',
+    'Ace flush Straight to 5',
+    'Straigth flush',
+    'Royal flush'
 ]

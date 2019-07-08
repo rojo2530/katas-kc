@@ -1,4 +1,5 @@
 import { pokerCards } from './data.mjs';
+import { ranks } from './data.mjs';
 
 export class Hand {
     constructor(cards) {
@@ -13,7 +14,7 @@ export class Hand {
         this.cards = cards;
         this.isValidCard();
         this.isValidHand();
-        console.log(this.isSuited());
+        
 
     }
 
@@ -53,8 +54,8 @@ export class Hand {
         return this.cards.map( card => card[1]);
     }
 
-    //Para ver si todas las cartas de la mano son del mismo Palo
-    isSuited() {
+    //Para ver si todas las cartas de la mano son del mismo Palo, es decir color
+    isColor() {
         const suitedCards = this.getSuitHandArray();
         const uniqueSuitedCards = [...new Set(suitedCards)];
         return (uniqueSuitedCards.length == 1);
@@ -77,12 +78,122 @@ export class Hand {
         });
 
         return output;
+    }
+    //Devuelve la carta mas Alta de la mano
+    getHighCard() {
+        let output = 0;
+        const numbersHandArray = this.getNumberHandArray();
+      
+        numbersHandArray.forEach( (card ) => {
+            if (pokerCards.S.indexOf(card) > output ) {
+                output = pokerCards.S.indexOf(card);
+            }
+        });
 
+        return pokerCards.S[output];
     }
 
+    //Acepta un array como parámetro de numeros de cartas y nos dice sin son consecutivos
+    hasConsecutiveNumbers (numbersHand) {
+        let indexNumbers = [];
 
+        numbersHand.forEach( (card) => {
+            indexNumbers.push(pokerCards.S.indexOf(card));
+        });
 
+        const sortIndexNumbers =  indexNumbers.sort((a, b) => a - b);
 
+        for (let i = 1; i < sortIndexNumbers.length; i++) {
+            if (sortIndexNumbers[i -1] != sortIndexNumbers[i] -1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    isStraigth() {
+        let numbersHandArray = this.getNumberHandArray();
+        //Si entre las cartas estan en el As y el 2, podría ser escalera como mucho del As al 5, que lo vemos en un caso particular
+        if (numbersHandArray.indexOf('A') != -1 && numbersHandArray.indexOf('2') != -1) {
+            return false;
+        }
+
+        return (this.hasConsecutiveNumbers(numbersHandArray));
+
+    }
+    //Caso especial, la escalera mas baja del A al 5
+    isAceFiveStrigth() {
+      let numbersHandArray = this.getNumberHandArray();
+
+      if (numbersHandArray.indexOf('A')  != -1 && numbersHandArray.indexOf('2') != -1) {
+        const numbersHandArrayWithOutAs = numbersHandArray.filter( (card) => card != 'A');
+        return (this.hasConsecutiveNumbers(numbersHandArrayWithOutAs));
+      }
+
+      return false;
+    }
+
+    calculateRankHand() {
+        let numbersHandArray = this.getNumberHandArray();
+        //Escalera real o royal flush
+        if (numbersHandArray.indexOf('A') != -1 && this.isStraigth() && this.isColor()) {
+            return ranks[11];
+        }
+
+        //Escalera de color
+        if (this.isStraigth() && this.isColor()) {
+            return ranks[10];
+        }
+        //Escalera de color mas baja, A al 5
+        if (this.isAceFiveStrigth() && this.isColor()) {
+            return ranks[9];
+        }
+
+        //Poker
+        const duplicates = []; //Array axiliar para ordenadar las cartas duplicadas por numero de ocurrencias
+        const numberOcurrences = this.getNumberOcurrences();
+        
+        for (let ocurrence in numberOcurrences)  {
+           duplicates.push(numberOcurrences[ocurrence]);
+        }
+
+        const sortedUuplicates = duplicates.sort((a, b) => b - a);
+
+        if (duplicates[0] === 4) {
+            return ranks[8];
+        } 
+
+        if (duplicates[0] === 3 && duplicates[1] === 2) {
+            return ranks[7];
+        }
+
+        if (this.isColor()) {
+            return ranks[6];
+        }
+
+        if (this.isStraigth()) {
+            return ranks[5];
+        }
+
+        if (this.isAceFiveStrigth()) {
+            return ranks[4];
+        }
+
+        if (duplicates[0] === 3) {
+            return ranks[3];
+        }
+
+        if (duplicates[0] === 2 && duplicates[1] === 2) {
+            return ranks[2];
+        }
+
+        if (duplicates[0] === 2) {
+            return ranks[1];
+        }
+
+        return ranks[0];
+    }
 }
 
 
