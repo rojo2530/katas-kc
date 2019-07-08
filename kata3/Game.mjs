@@ -37,6 +37,26 @@ export class Game {
         console.log(`Jugador 2 tiene las siguientes cartas ${this.hand2.cards}`);
     }
 
+    //Llamamos a esta función en caso de que tengan el mismo rango de mano cada jugador
+    calculateTie(rank) {
+        //Escalera real, o escalera del A al 5 de color o escalera normal del A al 5    
+        if (rank === 11 || rank === 9 || rank === 4  ) {
+            console.log ('Empate con ' + this.hand1.calculateRankHand());
+          //Escalera de color  
+        } else if (rank === 10 || rank === 5) {
+            const HighCard1 = this.hand1.getHighCard();
+            const HighCard2 = this.hand2.getHighCard();
+            if (pokerCards.S.indexOf(HighCard1) > pokerCards.S.indexOf(HighCard2)) {
+                console.log('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' more high');
+            } else if (pokerCards.S.indexOf(HighCard1) < pokerCards.S.indexOf(HighCard2)) {
+                console.log('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' more high');
+            } else {
+                console.log('Empate ambos jugadores con ' + this.hand1.calculateRankHand());
+            }
+
+        } 
+    }
+
  
     play() {
         this.printCards();
@@ -49,25 +69,10 @@ export class Game {
             console.log('Gana Jugador 1 con mano ' +  this.hand1.calculateRankHand());
         } else if (rankNumberHand1 < rankNumberHand2) {
             console.log('Gana Jugador 2 con mano '+ this.hand2.calculateRankHand());
-          //En caso de que tengan la misma jugada  
-
+          
+            //En caso de que tengan la misma jugada  
         } else {
-            //Escalera real, o escalera del A al 5 de color o escalera normal del A al 5    
-            if (rankNumberHand1 === 11 || rankNumberHand1 === 9 || rankNumberHand1 === 4  ) {
-                console.log ('Empate con ' + this.hand1.calculateRankHand());
-              //Escalera de color  
-            } else if (rankNumberHand1 === 10 || rankNumberHand1 === 5) {
-                const HighCard1 = this.hand1.getHighCard();
-                const HighCard2 = this.hand2.getHighCard();
-                if (pokerCards.S.indexOf(HighCard1) > pokerCards.S.indexOf(HighCard2)) {
-                    console.log('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' more high');
-                } else if (pokerCards.S.indexOf(HighCard1) < pokerCards.S.indexOf(HighCard2)) {
-                    console.log('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' more high');
-                } else {
-                    console.log('Empate ambos jugadores con ' + this.hand1.calculateRankHand());
-                }
-
-            } 
+            this.calculateTie(rankNumberHand1);    
 
         }
 
