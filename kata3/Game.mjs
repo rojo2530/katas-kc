@@ -41,20 +41,49 @@ export class Game {
     calculateTie(rank) {
         //Escalera real, o escalera del A al 5 de color o escalera normal del A al 5    
         if (rank === 11 || rank === 9 || rank === 4  ) {
-            console.log ('Empate con ' + this.hand1.calculateRankHand());
-          //Escalera de color  
+            return ('Empate con ' + this.hand1.calculateRankHand());
+          //Escalera de color o Escalera
         } else if (rank === 10 || rank === 5) {
             const HighCard1 = this.hand1.getHighCard();
             const HighCard2 = this.hand2.getHighCard();
             if (pokerCards.S.indexOf(HighCard1) > pokerCards.S.indexOf(HighCard2)) {
-                console.log('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' more high');
+                return ('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' more high');
             } else if (pokerCards.S.indexOf(HighCard1) < pokerCards.S.indexOf(HighCard2)) {
-                console.log('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' more high');
+                return ('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' more high');
             } else {
-                console.log('Empate ambos jugadores con ' + this.hand1.calculateRankHand());
+                return ('Empate ambos jugadores con ' + this.hand1.calculateRankHand());
+            }
+        //Ambos jugadores con Poker     
+        } else if (rank === 8) {
+            //Sacamos el valor del Poker
+            
+
+
+
+        }
+        //Carta alta
+        else if (rank === 0) {
+            console.log('Entra');
+            const numbersHand1 = this.hand1.getNumberHandArray();
+            const numbersHand2 = this.hand2.getNumberHandArray();
+
+            const indexNumbersHand1 = numbersHand1.map ( (card) => pokerCards.S.indexOf(card));
+            const indexNumbersHand2 = numbersHand2.map ( (card) => pokerCards.S.indexOf(card));
+            //Ordenamos los arrays en orden descendente
+            const sortIndexNumbersHand1 = indexNumbersHand1.sort((a, b) => b - a);
+            const sortIndexNumbersHand2 = indexNumbersHand2.sort((a, b) => b - a);
+            
+            for (let i = 0; i < sortIndexNumbersHand1.length; i++) {
+                if (sortIndexNumbersHand1[i] > sortIndexNumbersHand2[i]) {
+                    return ('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' with better kicker');
+                } else if (sortIndexNumbersHand1[i] < sortIndexNumbersHand2[i]) {
+                    return ('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' with better kicker');
+                }
             }
 
-        } 
+            return 'Empate con Carta Alta';
+
+        }
     }
 
  
@@ -66,20 +95,14 @@ export class Game {
         console.log(rankNumberHand1, rankNumberHand2);
         
         if (rankNumberHand1 > rankNumberHand2) {
-            console.log('Gana Jugador 1 con mano ' +  this.hand1.calculateRankHand());
+            return ('Gana Jugador 1 con mano ' +  this.hand1.calculateRankHand());
         } else if (rankNumberHand1 < rankNumberHand2) {
-            console.log('Gana Jugador 2 con mano '+ this.hand2.calculateRankHand());
+            return ('Gana Jugador 2 con mano '+ this.hand2.calculateRankHand());
           
             //En caso de que tengan la misma jugada  
         } else {
-            this.calculateTie(rankNumberHand1);    
+            console.log(this.calculateTie(rankNumberHand1));    
 
         }
-
-
-
-
-
-
     }
 }

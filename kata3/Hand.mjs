@@ -69,11 +69,7 @@ export class Hand {
         numbersHandArray.forEach( (card) => {
             if (pokerCards.S.indexOf(card) != -1) {
                 typeof output[card] === 'undefined' ? output[card] = 1: output[card]++;
-                // if (output[card]) {
-                //     output[card]++;
-                // } else {
-                //     output[card] = 1;
-                // }
+              
             }
         });
 
@@ -112,6 +108,8 @@ export class Hand {
         return true;
     }
 
+    
+
     isStraigth() {
         let numbersHandArray = this.getNumberHandArray();
         //Si entre las cartas estan en el As y el 2, podría ser escalera como mucho del As al 5, que lo vemos en un caso particular
@@ -134,20 +132,67 @@ export class Hand {
       return false;
     }
 
+    //Nos devuelve un array con el valor de la jugada, por ejemplo en un poker de 7 y un 2, nos devuelve un ['7', '2'], 
+    //en un Full house de 8 y 4, nos devolvería ['8', '4'] , 
+    valueOfDuplicateCards() {
+        let rank = ranks.indexOf(this.calculateRankHand());
+        const numberOcurrences = this.getNumberOcurrences();
+        let output = [];
+        console.log(numberOcurrences);
+        console.log(rank);
+
+        for (let card in numberOcurrences) {
+            if (rank === 8) {
+                if (numberOcurrences[card] === 4) {
+                    output[0] = card;
+                } else {
+                    output[1] = card;
+                }
+            } else if (rank === 7) {
+                if (numberOcurrences[card] === 3){
+                    output[0] = card;
+                } else {
+                    output[1] = card;
+                }
+            } else if (rank === 3) {
+                if (numberOcurrences[card] === 3) {
+                    output[0] = card;
+                } else {
+                    output.push(card);
+                } 
+            //Doble pareja
+            } else if (rank === 2) {
+                if (numberOcurrences[card] === 2) {
+                    output.push(card);
+                } else if (numberOcurrences[card] === 1) {
+                    output[2] = card;
+                }
+            }
+
+        }
+
+        return output;
+   }
+
     calculateRankHand() {
+        
+        //Devolvemos un diccionario con el rango de la mano ,y con el valor del rango, es decir si tiene poker pues poker de A, o de 7,
+        //Si tiene escalera pues el valor de la carta mas alta de la escalera, 
+       
+
         let numbersHandArray = this.getNumberHandArray();
         //Escalera real o royal flush
         if (numbersHandArray.indexOf('A') != -1 && this.isStraigth() && this.isColor()) {
-            return ranks[11];
+           return ranks[11];
         }
 
         //Escalera de color
         if (this.isStraigth() && this.isColor()) {
-            return ranks[10];
+           return ranks[10];
         }
         //Escalera de color mas baja, A al 5
         if (this.isAceFiveStrigth() && this.isColor()) {
-            return ranks[9];
+           return ranks[9];
         }
 
         //Poker
@@ -162,10 +207,12 @@ export class Hand {
 
         if (duplicates[0] === 4) {
             return ranks[8];
+           
         } 
 
         if (duplicates[0] === 3 && duplicates[1] === 2) {
             return ranks[7];
+          
         }
 
         if (this.isColor()) {

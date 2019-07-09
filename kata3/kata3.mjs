@@ -7,12 +7,14 @@ import { Game }  from './Game.mjs';
 
 
 
-let player1Hand = new Hand(['4S','5S', '8S', '7S', '6S']);
-let player2Hand = new Hand(['7H','5H', '4H', '8H', '6H']);
+let player1Hand = new Hand(['TS','KD', '2D', '4S', '9H']);
+let player2Hand = new Hand(['7H','8C', 'TD', 'KS', '2H']);
+// console.log(player2Hand.calculateRankHand());
 
-let newGame = new Game(player1Hand,player2Hand);
+// console.log(player2Hand.valueOfDuplicateCards());
+console.log(new Game(player1Hand,player2Hand));
 
-console.log(player1Hand.calculateRankHand());
+// console.log(player1Hand.calculateRankHand());
 // player2Hand = new Hand();
 // game = new Game(player1Hand, player2Hand);
 
