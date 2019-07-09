@@ -7,17 +7,10 @@ import { Game }  from './Game.mjs';
 
 
 
-let player1Hand = new Hand(['JS','JD', '5D', '5H', '6C']);
-let player2Hand = new Hand(['JH','JC', '4H', '4S', '9C']);
-// console.log(player2Hand.calculateRankHand());
+let player1Hand = new Hand(['JS','JD', '5D', '5H', '7H']);
+let player2Hand = new Hand(['JH','JC', '5C', '5S', '7C']);
 
-console.log(player1Hand.sortByNumberOcurrences());
+new Game(player1Hand,player2Hand);
 
-// console.log(player2Hand.valueOfDuplicateCards());
-console.log(new Game(player1Hand,player2Hand));
-
-// console.log(player1Hand.calculateRankHand());
-// player2Hand = new Hand();
-// game = new Game(player1Hand, player2Hand);
 
 

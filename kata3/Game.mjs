@@ -20,7 +20,7 @@ export class Game {
             throw new Error ('Existen cartas repetidas entre las dos manos');
         }
 
-        this.play();
+        // this.play();
 
     }
 
@@ -33,8 +33,9 @@ export class Game {
     }   
 
     printCards() {
-        console.log(`Jugador 1 tiene las siguientes cartas ${this.hand1.cards}`);
-        console.log(`Jugador 2 tiene las siguientes cartas ${this.hand2.cards}`);
+        console.log('*************************************************************************************************');
+        console.log(`Player 1 with the following cards ${this.hand1.cards} with rank: ${this.hand1.calculateRankHand()}`);
+        console.log(`Player 2 with the following cards ${this.hand2.cards} with rank: ${this.hand2.calculateRankHand()}`);
     }
 
     //Llamamos a esta función en caso de que tengan el mismo rango de mano cada jugador
@@ -100,14 +101,13 @@ export class Game {
                 }
             }
 
-            return 'Empate con Carta Alta';
+            return 'Empate con ' + this.hand1.calculateRankHand();
 
         }
 
 
         //Carta alta
         else if (rank === 0) {
-            console.log('Entra');
             const numbersHand1 = this.hand1.getNumberHandArray();
             const numbersHand2 = this.hand2.getNumberHandArray();
 
@@ -137,7 +137,6 @@ export class Game {
         //Guardamos el indice del array de rangos para compararlo
         const rankNumberHand1 = ranks.indexOf(this.hand1.calculateRankHand()); 
         const rankNumberHand2 = ranks.indexOf(this.hand2.calculateRankHand()); 
-        console.log(rankNumberHand1, rankNumberHand2);
         
         if (rankNumberHand1 > rankNumberHand2) {
             return ('Gana Jugador 1 con mano ' +  this.hand1.calculateRankHand());
