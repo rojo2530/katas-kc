@@ -54,13 +54,57 @@ export class Game {
                 return ('Empate ambos jugadores con ' + this.hand1.calculateRankHand());
             }
         //Ambos jugadores con Poker     
-        } else if (rank === 8) {
-            //Sacamos el valor del Poker
-            
+        } else if (rank === 8 || rank === 7 || rank === 3 ) {
+            //Sacamos el valor del Poker, o Full o Trio
+            let numberPokerHand1 = this.hand1.sortByNumberOcurrences()[0][0];
+            let numberPokerHand2 = this.hand2.sortByNumberOcurrences()[0][0]; 
 
+            if (pokerCards.S.indexOf(numberPokerHand1) > pokerCards.S.indexOf(numberPokerHand2)) {
+                return ('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' more high');
+            } else {
+                return ('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' more high');
+            }
+         //Ambos jugadores con Dobles parejas   
+        } else if (rank === 2 || rank === 1) {
+           const numbersOcurrencesHand1 = this.hand1.sortByNumberOcurrences();
+           const numbersOcurrencesHand2 = this.hand2.sortByNumberOcurrences();
+           //Lo convertimos a un array dimesional con las cartas, las repetidas solo aparecen ordenadas por número de repetición 
+           const numbersHand1 = numbersOcurrencesHand1.map ( (element) => element[0]);
+           const numbersHand2 = numbersOcurrencesHand2.map ( (element) => element[0]);
+           
+           const indexNumbersHand1 = numbersHand1.map ( (card) => pokerCards.S.indexOf(card));
+           const indexNumbersHand2 = numbersHand2.map ( (card) => pokerCards.S.indexOf(card));
+          
+           //Tenemos que ordenador solo los 2 primeros elementos que son las parejas y por ultimo la carta individual o kicker 
+           for (let i = 0; i < indexNumbersHand1.length; i++) {
+               if (indexNumbersHand1[0] < indexNumbersHand1[1]) {
+                   let aux = indexNumbersHand1[0];
+                   indexNumbersHand1[0] = indexNumbersHand1[1];
+                   indexNumbersHand1[1] = aux;
+               }
+           }
 
+           for (let i = 0; i < indexNumbersHand2.length; i++) {
+                if (indexNumbersHand2[0] < indexNumbersHand2[1]) {
+                    let aux = indexNumbersHand2[0];
+                    indexNumbersHand2[0] = indexNumbersHand2[1];
+                    indexNumbersHand2[1] = aux;
+                }
+           }
+
+            for (let i = 0; i < indexNumbersHand1.length; i++) {
+                if (indexNumbersHand1[i] > indexNumbersHand2[i]) {
+                    return ('Gana Jugador 1 con mano ' + this.hand1.calculateRankHand() + ' with better kicker');
+                } else if (indexNumbersHand1[i] < indexNumbersHand2[i]) {
+                    return ('Gana Jugador 2 con mano ' + this.hand2.calculateRankHand() + ' with better kicker');
+                }
+            }
+
+            return 'Empate con Carta Alta';
 
         }
+
+
         //Carta alta
         else if (rank === 0) {
             console.log('Entra');
@@ -72,6 +116,7 @@ export class Game {
             //Ordenamos los arrays en orden descendente
             const sortIndexNumbersHand1 = indexNumbersHand1.sort((a, b) => b - a);
             const sortIndexNumbersHand2 = indexNumbersHand2.sort((a, b) => b - a);
+            
             
             for (let i = 0; i < sortIndexNumbersHand1.length; i++) {
                 if (sortIndexNumbersHand1[i] > sortIndexNumbersHand2[i]) {

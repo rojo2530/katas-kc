@@ -75,6 +75,22 @@ export class Hand {
 
         return output;
     }
+    //Nos devuelve un array bidimensional ordenado por número de ocurrencias, usando el diccionario como numero de ocurrencias 
+    sortByNumberOcurrences() {
+        let numberOcurrences = this.getNumberOcurrences();
+        let sortable = [];
+
+        for( let card in numberOcurrences ) {
+		    if(numberOcurrences.hasOwnProperty(card)) {
+			    sortable.push([card, numberOcurrences[card]]);
+            }
+        }
+	    sortable.sort((a, b) => b[1] - a[1]);
+	    return sortable; 
+
+    }
+
+   
     //Devuelve la carta mas Alta de la mano
     getHighCard() {
         let output = 0;
@@ -108,7 +124,7 @@ export class Hand {
         return true;
     }
 
-    
+
 
     isStraigth() {
         let numbersHandArray = this.getNumberHandArray();
