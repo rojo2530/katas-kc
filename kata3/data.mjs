@@ -19,3 +19,15 @@ export const ranks = [
     'Straigth flush',
     'Royal flush'
 ]
+//Ordena de forma númerica solo los dos primeros elementos de un array
+export function sortArrayOnly2FirstElements (arrayElements) {
+    for (let i = 0; i < arrayElements.length; i++) {
+        if (arrayElements[0] < arrayElements[1]) {
+            let aux = arrayElements[0];
+            arrayElements[0] = arrayElements[1];
+            arrayElements[1] = aux;
+        }
+    }
+
+    return arrayElements;
+}
