@@ -20,7 +20,7 @@ export class Game {
             throw new Error ('Existen cartas repetidas entre las dos manos');
         }
 
-        this.play();
+        console.log(this.play());
     }
 
     isValidGame() {
@@ -34,6 +34,13 @@ export class Game {
         console.log('*************************************************************************************************');
         console.log(`Player 1 with the following cards ${this.hand1.cards} with rank: ${this.hand1.calculateRankHand()}`);
         console.log(`Player 2 with the following cards ${this.hand2.cards} with rank: ${this.hand2.calculateRankHand()}`);
+    }
+
+    //Nos devuelve un array ordenado por el índice que ocupa cada carta de mayor a menor, acepta como entrada un array de cartas
+    sortCardsByIndex(cards) {
+        const cardsIndex = cards.map ( (card) => pokerCards.S.indexOf(card));
+         
+        return cardsIndex.sort((a, b) => b - a);
     }
     //Calcula el ganador cuando las dos manos son escalera o escalera de color
     tieStraigth() {
@@ -101,11 +108,11 @@ export class Game {
         } else if (pokerCards.S.indexOf(pairHand1) < pokerCards.S.indexOf(pairHand2)) {
             return ('Player 2 wins with ' + this.hand2.calculateRankHand() + ' more high');
         } else {
-            const indexNumbersHand1 = numbersHand1.map ( (card) => pokerCards.S.indexOf(card));
-            const indexNumbersHand2 = numbersHand2.map ( (card) => pokerCards.S.indexOf(card));
-            const sortIndexNumbersHand1 = indexNumbersHand1.sort((a, b) => b - a);
-            const sortIndexNumbersHand2 = indexNumbersHand2.sort((a, b) => b - a);
+            const sortIndexNumbersHand1 = this.sortCardsByIndex(numbersHand1);
+            const sortIndexNumbersHand2 = this.sortCardsByIndex(numbersHand2);
            
+            console.log(sortIndexNumbersHand1,sortIndexNumbersHand2);
+
             for (let i = 0; i < sortIndexNumbersHand1.length; i++) {
                 if (sortIndexNumbersHand1[i] > sortIndexNumbersHand2[i]) {
                     return ('Player 1 wins with ' + this.hand1.calculateRankHand() + ' with better kicker');
@@ -119,16 +126,10 @@ export class Game {
     }
 
     tieHighCard() {
-        const numbersHand1 = this.hand1.getNumberHandArray();
-        const numbersHand2 = this.hand2.getNumberHandArray();
-
-        const indexNumbersHand1 = numbersHand1.map ( (card) => pokerCards.S.indexOf(card));
-        const indexNumbersHand2 = numbersHand2.map ( (card) => pokerCards.S.indexOf(card));
         //Ordenamos los arrays en orden descendente
-        const sortIndexNumbersHand1 = indexNumbersHand1.sort((a, b) => b - a);
-        const sortIndexNumbersHand2 = indexNumbersHand2.sort((a, b) => b - a);
+        const sortIndexNumbersHand1 = this.sortCardsByIndex(this.hand1.getNumberHandArray());
+        const sortIndexNumbersHand2 = this.sortCardsByIndex(this.hand2.getNumberHandArray());
         
-            
         for (let i = 0; i < sortIndexNumbersHand1.length; i++) {
             if (sortIndexNumbersHand1[i] > sortIndexNumbersHand2[i]) {
                 return ('Player 1 wins with ' + this.hand1.calculateRankHand() + ' with better kicker');
