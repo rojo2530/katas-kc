@@ -44,5 +44,3 @@ function FooBarQuix (number) {
 for (let i = 1; i<= 100; i++) {
     console.log(FooBarQuix(i));
 }
-
-console.log(FooBarQuix('C'));
