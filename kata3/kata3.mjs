@@ -2,18 +2,14 @@ import { Hand }  from './Hand.mjs';
 import { Game }  from './Game.mjs';
 
 
-
-
-
-
-
-let player1Hand = new Hand(['2H','3D', '4C', 'AC', '5D']);
-let player2Hand = new Hand(['2C','3H', '4S', '8C', 'AH']);
+let player1Hand = new Hand(['JH','KH', 'AH', 'TH', '6H']);
+let player2Hand = new Hand(['5C','7C', 'QC', 'KC', 'AC']);
 
 new Game(player1Hand,player2Hand);
 
-player1Hand = new Hand(['8S','7D', 'AC', 'KD', 'TH']);
-player2Hand = new Hand(['8C','7H', 'QS', 'AH', '9H']);
+player1Hand = new Hand(['8S','8D', 'AC', 'KD', 'JC']);
+player2Hand = new Hand(['8C','8H', 'KS', 'AH', 'JH']);
 
-new Game(player1Hand,player2Hand);
+let game1 = new Game(player1Hand,player2Hand);
+
 

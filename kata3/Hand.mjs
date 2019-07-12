@@ -4,11 +4,11 @@ import { ranks } from './data.mjs';
 export class Hand {
     constructor(cards) {
         if (!(cards instanceof Array)) {
-            throw new Error('Tienes que pasar las cartas en un Array como parámetro');
+            throw new Error('You have to pass the cards in an Array as a parameter');
         }
 
         if (cards.length < 5) {
-            throw new Error('Tienes que pasar 5 cartas y solo has pasado ' + cards.length);
+            throw new Error('You have to enter 5 cards and you have only enter ' + cards.length);
         }
 
         this.cards = cards;
@@ -20,15 +20,16 @@ export class Hand {
         this.cards.forEach((card) => {
             //Comprobamos si la carta tiene 2 carácteres
             if (card.length != 2) {
-                throw new Error(`La carta ${card} que has pasado no tiene un formato valido`);
+                throw new Error(`The card ${card} that you passed doesn't have a valid format`);
             }
             //Comprobamos si el palo de la carta es correcto
             if (!(card[1] in pokerCards)) {
-                throw new Error(`La carta ${card} que has pasado no tiene un formato valido, el palo es incorrecto`);
+                throw new Error(`The card ${card} that you passed doesn't have a valid format, wrong suit`);
             }
             //Comprobamos si el número de la carta es correcto
+         
             if (pokerCards.S.indexOf(card[0]) == -1) {
-                throw new Error(`La carta ${card} que has pasado no tiene un formato valido, el número es incorrecto`);
+                throw new Error(`The card ${card} that you passed doesn't have a valid format, wrong number`);
             }
         });
     }
@@ -37,7 +38,7 @@ export class Hand {
         // Comprobamos si existen 2 cartas iguales, para ello creamos un nuevo array con elementos únicos a partir de la mano
         const uniqueCards = [...new Set(this.cards)];
         if (uniqueCards.length != 5) {
-            throw new Error('Existen cartas repetidas en la mano');
+            throw new Error('There are repeated cards in the hand');
         }
     }
 
