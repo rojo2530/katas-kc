@@ -133,3 +133,4 @@ Salida: Jugador 1 gana, carta más alta
 
 Entrada: Jugador 1: 2H 3D 5S 9C KD Jugador 2: 2D 3H 5C 9S KH
 Salida: Empate
+

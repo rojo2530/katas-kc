@@ -160,7 +160,7 @@ export class Hand {
 
         //Poker
         const duplicates = this.sortByNumberOcurrences();
-        if (duplicates[0][0] === 4) {
+        if (duplicates[0][1] === 4) {
             return ranks[8];
         }
         //Full house
